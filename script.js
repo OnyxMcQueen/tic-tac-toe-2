@@ -31,3 +31,13 @@ const gameBoardModule = (function() {
     resetBoard
   }
 })();
+
+// Factory function that will create player objects with public methods that
+// interact with name and mark private data
+
+function createPlayer(name, mark){
+  return {
+    getName: () => name,
+    getMark: () => mark
+  }
+}
