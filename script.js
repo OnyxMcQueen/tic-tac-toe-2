@@ -114,3 +114,63 @@ const gameControllerModule = (function() {
     getWinner
   }
 })();
+
+// Display Controller Module
+const displayControllerModule = (function() {
+  // Private data and methods go here
+  const board = document.querySelector("#board");
+  const boardCells = document.querySelectorAll(".cell");
+  const statusDisplay = document.querySelector("#status-display");
+  const resetBtn = document.querySelector("#reset-btn");
+
+  function handleCellClick(){
+    boardCells.forEach((cell) => {
+      cell.addEventListener('click', (e) => {
+        const dataIndex = Number(e.target.dataset.index);
+
+        const result = gameControllerModule.playTurn(dataIndex);
+
+        if(result.status === 'game-over'){
+          statusDisplay.textContent = 'It Looks Like The Game Is Over!'
+        } else if(result.status === 'invalid'){
+          statusDisplay.textContent = 'That Spot Seems To Be Taken! Try Again'
+        } else if(result.status === 'win'){
+          const winnerName = result.data.winner.name;
+          statusDisplay.textContent = `${winnerName} has won the game! Congrats!`
+        } else if(result.status === 'continue'){
+          const nextPlayer = gameControllerModule.getCurrentPlayer();
+          statusDisplay.textContent = `${nextPlayer.name}'s Turn`
+        }
+
+        render();
+      })
+    })
+  }
+
+  function render(){
+    const gameBoard = gameBoardModule.getBoard();
+
+    for(let i = 0; i < boardCells.length; i++){
+      if(i < gameBoard.length){
+        boardCells[i].textContent = gameBoard[i];
+      }
+    }
+  }
+
+  function init(){
+    handleCellClick();
+    render();
+    const player = gameControllerModule.getCurrentPlayer();
+    statusDisplay.textContent = `${player}'s Turn`;
+  }
+
+  return {
+    // Public methods and object will be returned.
+    render,
+    init
+  }
+})();
+
+// Initialize the Game
+gameControllerModule.startGame();
+displayControllerModule.init();
