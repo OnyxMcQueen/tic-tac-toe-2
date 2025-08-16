@@ -138,8 +138,7 @@ const displayControllerModule = (function() {
           const winnerName = result.data.winner.name;
           statusDisplay.textContent = `${winnerName} has won the game! Congrats!`
         } else if(result.status === 'continue'){
-          const nextPlayer = gameControllerModule.getCurrentPlayer();
-          statusDisplay.textContent = `${nextPlayer.name}'s Turn`
+          updateStatusDisplay();
         }
 
         render();
@@ -157,11 +156,25 @@ const displayControllerModule = (function() {
     }
   }
 
+  function handleReset(){
+    gameControllerModule.startGame();
+    render();
+    updateStatusDisplay();
+  }
+
+  function updateStatusDisplay(){
+    const player = gameControllerModule.getCurrentPlayer();
+    statusDisplay.textContent = `${player.name}'s Turn`;
+  }
+
   function init(){
     handleCellClick();
     render();
-    const player = gameControllerModule.getCurrentPlayer();
-    statusDisplay.textContent = `${player}'s Turn`;
+    updateStatusDisplay();
+
+    resetBtn.addEventListener('click', (e) => {
+      handleReset();
+    })
   }
 
   return {
