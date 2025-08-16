@@ -137,6 +137,8 @@ const displayControllerModule = (function() {
         } else if(result.status === 'win'){
           const winnerName = result.data.winner.name;
           statusDisplay.textContent = `${winnerName} has won the game! Congrats!`
+        } else if(result.status === 'tie'){
+          statusDisplay.textContent = `It's a tie! Well played.`;
         } else if(result.status === 'continue'){
           updateStatusDisplay();
         }
