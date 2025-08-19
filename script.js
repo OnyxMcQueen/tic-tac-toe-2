@@ -131,7 +131,7 @@ const displayControllerModule = (function() {
         const result = gameControllerModule.playTurn(dataIndex);
 
         if(result.status === 'game-over'){
-          statusDisplay.textContent = 'It Looks Like The Game Is Over! ‼️'
+          statusDisplay.textContent = 'It Looks Like The Game Is Over! ❌'
         } else if(result.status === 'invalid'){
           statusDisplay.textContent = 'That Spot Seems To Be Taken! Try Again ❌'
         } else if(result.status === 'win'){
