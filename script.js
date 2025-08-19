@@ -131,14 +131,14 @@ const displayControllerModule = (function() {
         const result = gameControllerModule.playTurn(dataIndex);
 
         if(result.status === 'game-over'){
-          statusDisplay.textContent = 'It Looks Like The Game Is Over!'
+          statusDisplay.textContent = 'It Looks Like The Game Is Over! ‼️'
         } else if(result.status === 'invalid'){
-          statusDisplay.textContent = 'That Spot Seems To Be Taken! Try Again'
+          statusDisplay.textContent = 'That Spot Seems To Be Taken! Try Again ❌'
         } else if(result.status === 'win'){
           const winnerName = result.data.winner.name;
-          statusDisplay.textContent = `${winnerName} has won the game! Congrats!`
+          statusDisplay.textContent = `${winnerName} has won the game! Congrats! 🎉`
         } else if(result.status === 'tie'){
-          statusDisplay.textContent = `It's a tie! Well played.`;
+          statusDisplay.textContent = `It's a tie! Well played. 🤝`;
         } else if(result.status === 'continue'){
           updateStatusDisplay();
         }
